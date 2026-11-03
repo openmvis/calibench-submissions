@@ -1,3 +1,5 @@
+> **Paused (November 2026):** submissions are not being accepted while this process is replaced by a new kit. The text below describes the old process and may not apply. The current leaderboard is built from the maintainers' runs of MVIS, Kalibr and Basalt.
+
 # calibench-submissions
 
 Submission intake + **re-run-eval CI** for the [Calibench](https://huggingface.co/calibench-vi)

@@ -1,3 +1,5 @@
+> **Paused (November 2026):** submissions are not being accepted while this process is replaced by a new kit. The text below describes the old process and may not apply. The current leaderboard is built from the maintainers' runs of MVIS, Kalibr and Basalt.
+
 # Submitting results to the Calibench leaderboard
 
 Open a **PR to this repo** adding your submission under `submissions/<tool>-<batch>/`.
