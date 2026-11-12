@@ -2,7 +2,7 @@
 """Publish result.json(s) to the calibench-vi/results dataset.
 
 Usage: HF_TOKEN=... python scripts/publish.py [result.json ...]
-Needs a Hugging Face token with WRITE access to the calibench-vi org.
+Needs a fine-grained Hugging Face token with write access to calibench-vi/results only.
 Records are stored per tool and batch: <tool.name>/<batch>/<file>.json
 (batch = record "batch" field, else its timestamp date) — so each leaderboard
 generation traces to a batch and the same tool is comparable across batches.

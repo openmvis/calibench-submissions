@@ -1,0 +1,30 @@
+name: guard
+# Pull requests from forks may only add or change files under submissions/.
+# Scripts and workflows run with the HF token after merge, so outside code changes
+# are refused here. Maintainers' own branches are not checked.
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  only-submissions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fork PRs touch submissions/ only
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          files=$(gh api --paginate \
+            "repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" \
+            --jq '.[] | .filename, (.previous_filename // empty)')   # fails the step if the API fails
+          outside=$(printf '%s\n' "$files" | grep -v '^submissions/' || true)
+          if [ -n "$outside" ]; then
+            echo "::error::Pull requests from forks may only change files under submissions/. Outside:"
+            echo "$outside"
+            exit 1
+          fi
+          echo "only submissions/ changed"

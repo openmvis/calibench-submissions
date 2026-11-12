@@ -34,7 +34,13 @@ Scaffold. `scripts/evaluate.py`'s metric computation (calling the CamCalib
 evaluation harness + the private GT store) is the remaining **M3** wiring — until
 then submissions publish as `self_reported`, clearly labeled on the leaderboard.
 
-## Repo secrets (Settings → Secrets → Actions)
-- **`HF_TOKEN`** — a Hugging Face token with **write** access to the `calibench-vi`
-  org (used by `publish.py` to push verified rows to `calibench-vi/results`).
+## Secrets (Settings → Environments → `hf-publish`)
+- **`HF_TOKEN`** — a **fine-grained** Hugging Face token with write access to the
+  `calibench-vi/results` dataset only (used by `publish.py` to push verified rows).
+  It is an environment secret, not a repo secret: the `publish` job runs in the
+  `hf-publish` environment, which only `main` can use and which waits for a
+  maintainer's approval before every run.
+- Pull requests from forks may only change files under `submissions/`; the
+  `guard` workflow fails them otherwise, so code changes from outside never reach
+  the job that holds the token.
 - *(later, M3)* a secret/source for the **held-out simulation GT** used to score `split: simulation`.
