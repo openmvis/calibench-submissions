@@ -7,6 +7,10 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    # HF_TOKEN is an environment secret: every run waits for a maintainer's approval.
+    environment: hf-publish
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
         with:
